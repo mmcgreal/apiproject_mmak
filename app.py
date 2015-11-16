@@ -10,7 +10,7 @@ def home():
 
 def read():
     with open ("data.txt", "r") as tags:
-    data=tags.read().replace('\n', '') #should separate each entry into a new array entry
+        data=tags.read().replace('\n', '') #should separate each entry into a new array entry
 
 
 def apiCall(n): #n=url
@@ -20,7 +20,7 @@ def apiCall(n): #n=url
 
 #@app.route("/t")   
 #@app.route("/t/<tag>")
-@app.route("/",methods=["GET","POST"])
+@app.route("/t",methods=["GET","POST"])
 def main(): #defaulted to tebow for now
     #tumblr search
     tag="Tebow"
@@ -34,7 +34,7 @@ def main(): #defaulted to tebow for now
     if tag["response"]["players"]:
         tag = tag["response"]["players"][0]["name"]
     else:
-    tag = "Tebow"
+        tag = "Tebow"
     player = tag
     
     for space in [' ']:
@@ -47,10 +47,10 @@ def main(): #defaulted to tebow for now
 
    
     #r['response'][1]['photos'][0]['original_size']['url']
-    photos = []
+    photos1 = []
     for item in r['response']:
         try:
-            photos.append(item['photos'][0]['original_size']['url'])
+            photos1.append(item['photos'][0]['original_size']['url'])
         except:
             pass
 
@@ -66,27 +66,27 @@ def main(): #defaulted to tebow for now
     if tag["response"]["players"]:
         tag = tag["response"]["players"][0]["name"]
     else:
-    tag = "Tebow"
+        tag = "Tebow"
     player = tag
     
     for space in [' ']:
         tag = tag.replace(space, "%20")
     print tag
 
-    key="XMM91Jn3oeBBMejxa0JG1U7mEY88CnVqyjSisOhC9oE55ejJIn "
-    uri="https://api.tumblr.com/v2/tagged?tag=%s&api_key=%s"
-    url = uri%(tag,key)
+    key="9d9c84df9d7a536068063892e42543c6"
+    uri="http://api.flickr.com/services/rest/&method=flickr.activity.userPhotos&api_key=%s"
+    url = uri%(key)
 
    
     #r['response'][1]['photos'][0]['original_size']['url']
-    photos = []
+    photos2 = []
     for item in r['response']:
         try:
-            photos.append(item['photos'][0]['original_size']['url'])
+            photos2.append(item['photos'][0]['original_size']['url'])
         except:
             pass
 
-    return render_template("photos.html",urls=photos)
+    return render_template("photos.html",urls1=photos1,urls2=photos2)
 
 if __name__ == "__main__":
    app.debug = True
