@@ -1,4 +1,3 @@
-#tumblr.py
 from flask import Flask, render_template, request
 import urllib2, json, signal, time, thread, multiprocessing
 
@@ -27,13 +26,13 @@ def main(): #defaulted to tebow for now
         tag = request.form["player"]
     for space in [' ']:
         tag = tag.replace(space, "%20")
-    basic = """http://developer.echonest.com/api/v4/artist/search?api_key=V9SVA3AEDH6NCGYXY&format=json&name=""" + tag + """&results=1"""
+    basic = """ """ + tag + """&results=1"""
     tag = apiCall(basic)
 
     if tag["response"]["players"]:
         tag = tag["response"]["players"][0]["name"]
     else:
-    tag = "Radiohead"
+    tag = "Tebow"
     player = tag
     
     for space in [' ']:
