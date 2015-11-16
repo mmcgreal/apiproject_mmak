@@ -3,7 +3,6 @@ import urllib2, json, signal, time, thread, multiprocessing
 from threading import Thread
 import urllib2
 import json
-import xmltodict
 import random
 
 app = Flask(__name__)
