@@ -1,6 +1,6 @@
 #tumblr.py
-from flask import Flask, render_template
-import urllib2, json
+from flask import Flask, render_template, request
+import urllib2, json, signal, time, thread, multiprocessing
 
 app = Flask(__name__)
 
@@ -14,14 +14,32 @@ def read():
     data=tags.read().replace('\n', '') #should separate each entry into a new array entry
 
 
-def apiCall(n):
+def apiCall(n): #n=url
     request = urllib2.urlopen(n)
     result = request.read()
     return json.loads(result)
 
 @app.route("/t")   
 @app.route("/t/<tag>")
-def main(tag=data): 
+def main(): #defaulted to tebow for now
+    tag="Tebow"
+    if request.method == "POST":
+        tag = request.form["player"]
+    for space in [' ']:
+        tag = tag.replace(space, "%20")
+    basic = """http://developer.echonest.com/api/v4/artist/search?api_key=V9SVA3AEDH6NCGYXY&format=json&name=""" + tag + """&results=1"""
+    tag = apiCall(basic)
+
+    if tag["response"]["players"]:
+        tag = tag["response"]["players"][0]["name"]
+    else:
+    tag = "Radiohead"
+    player = tag
+    
+    for space in [' ']:
+        tag = tag.replace(space, "%20")
+    print tag
+
     key="6qjbDDaQ4vUogvpFIZ2UoaHuo6ykn1vMpjRYOdYOPCQI6dBw4K"
     uri="https://api.tumblr.com/v2/tagged?tag=%s&api_key=%s"
     url = uri%(tag,key)
