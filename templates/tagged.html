@@ -1,7 +1,27 @@
 
-<h1>Photo Gallery</h1>
+<button onclick="window.location.href='/'">Home</button>
 
-{% for u in urls %}
-<img height="200px" src="{{u}}">
-<hr>
-{% endfor %}
+<h1>Best Suited for Mating</h1>
+
+
+
+<div id="contentBox" style="margin:0px auto; width:80%">
+
+    <div id="column1" style="float:left; margin:0; width:45%;">
+     <center><hr> {% for u1 in urls1 %}
+     	<img height="200px" src="{{u1}}">
+     	<hr>
+     	{% endfor %}
+    </div>
+
+    <div id="column2" style="float:left; margin:0;width:10%;">
+    	<center>Couples
+    </div>
+
+    <div id="column3" style="float:left; margin:0;width:45%">
+    	<center><hr> {% for u2 in urls2 %}
+    		<img height="200px" src="{{u2}}">
+    		<hr>
+    		{% endfor %}
+    </div>
+</div>
